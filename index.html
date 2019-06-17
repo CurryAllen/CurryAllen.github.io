@@ -814,6 +814,219 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/15/Leetcode刷题日记-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CurryAllen">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CurryAllen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/15/Leetcode刷题日记-3/" itemprop="url">Leetcode刷题日记_2</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-15T13:21:14+08:00">
+                2019-06-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">Leetcode</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  832
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+    
+      
+      
+
+      
+        
+          
+            <h1 id="Leetcode-6-17"><a href="#Leetcode-6-17" class="headerlink" title="Leetcode 6.17"></a>Leetcode 6.17</h1><p>第三天打卡</p>
+<h2 id="Leetcode-15-3Sum"><a href="#Leetcode-15-3Sum" class="headerlink" title="Leetcode 15. 3Sum"></a>Leetcode 15. 3Sum</h2><p>Given an array nums of n integers, are there elements a, b, c in nums such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.</p>
+<p>Note:</p>
+<p>The solution set must not contain duplicate triplets.</p>
+<p>Example:</p>
+<p>Given array nums = [-1, 0, 1, 2, -1, -4],</p>
+<p>A solution set is:<br>[<br>  [-1, 0, 1],<br>  [-1, -1, 2]<br>]</p>
+<p>参考博客</p>
+<blockquote>
+<p><a href="https://www.cnblogs.com/grandyang/p/4481576.html" target="_blank" rel="noopener">https://www.cnblogs.com/grandyang/p/4481576.html</a></p>
+</blockquote>
+<p>这道题和之前做过的twosum有点相似，只不过从twosum变成了threesum。回顾之前做twosum的做法，排序号数组后，我使用双指针头尾遍历数组，找到target值。但很显然我们没办法直接应用这个解法。需要一点变通。</p>
+<p>什么变通呢？其实我们只要先把数组排序好，然后先固定一个值，之后把target取这个值的相反数，就能用双指针来找到我们需要的target值了，就变成和twosum一样了。</p>
+<p>固定一个值的时候，我们可以做个剪枝优化，有以下几种情况需要优化。</p>
+<ol>
+<li><p>遍历到正数直接break，因为数字已经是有序的了，如果第一个要固定的数是正的话，那之后的数字也必然是正的，无需考虑。其次，如果在前几个固定的数中已经使用到后面为正数的数了，我们也不需要把这些正数作为固定的数，因为这些数在之前的解使用过了。</p>
+</li>
+<li><p>从第二个数起，如果和前面的数字相等，就跳过。我们不想把相同数字固定两次。</p>
+</li>
+</ol>
+<p>AC代码：</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Solution &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="built_in">int</span>&gt;&gt; threeSum(vector&lt;<span class="built_in">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">        vector&lt;vector&lt;<span class="built_in">int</span>&gt;&gt;res;</span><br><span class="line">        sort(nums.begin(),nums.<span class="keyword">end</span>());</span><br><span class="line">        <span class="keyword">if</span>(nums.<span class="literal">empty</span>()||nums.back()&lt;<span class="number">0</span>||nums.front()&gt;<span class="number">0</span>) return &#123;&#125;;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">int</span> k=<span class="number">0</span>;k&lt;nums.size();k++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[k]&gt;<span class="number">0</span>) break;</span><br><span class="line">            <span class="keyword">if</span>(k&gt;<span class="number">0</span>&amp;&amp;nums[k]==nums[k<span class="number">-1</span>]) continue;</span><br><span class="line">            <span class="built_in">int</span> target=<span class="number">0</span>-nums[k];</span><br><span class="line">            <span class="built_in">int</span> <span class="built_in">left</span>=k+<span class="number">1</span>, <span class="built_in">right</span>=nums.size()<span class="number">-1</span>;</span><br><span class="line">            <span class="keyword">while</span>(<span class="built_in">left</span>&lt;<span class="built_in">right</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[<span class="built_in">left</span>]+nums[<span class="built_in">right</span>]==target)</span><br><span class="line">                &#123;</span><br><span class="line">                    res.push_back(&#123;nums[k],nums[<span class="built_in">left</span>],nums[<span class="built_in">right</span>]&#125;);</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">while</span>(<span class="built_in">left</span>&lt;<span class="built_in">right</span>&amp;&amp;nums[<span class="built_in">left</span>]==nums[<span class="built_in">left</span>+<span class="number">1</span>])++<span class="built_in">left</span>;</span><br><span class="line">                <span class="keyword">while</span>(<span class="built_in">left</span>&lt;<span class="built_in">right</span>&amp;&amp;nums[<span class="built_in">right</span>]==nums[<span class="built_in">right</span><span class="number">-1</span>])--<span class="built_in">right</span>;</span><br><span class="line">                </span><br><span class="line">                ++<span class="built_in">left</span>;--<span class="built_in">right</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(nums[<span class="built_in">left</span>]+nums[<span class="built_in">right</span>]&lt;target) ++<span class="built_in">left</span>;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    --<span class="built_in">right</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Leetcode-118-Pascal’s-Triangle"><a href="#Leetcode-118-Pascal’s-Triangle" class="headerlink" title="Leetcode 118. Pascal’s Triangle"></a>Leetcode 118. Pascal’s Triangle</h2><p>Given a non-negative integer numRows, generate the first numRows of Pascal’s triangle.</p>
+<p>Input: 5<br>Output:<br>[<br>     [1],<br>    [1,1],<br>   [1,2,1],<br>  [1,3,3,1],<br> [1,4,6,4,1]<br>]</p>
+<p>没什么好说的把，杨辉三角中每个数是它左上方和右上方的数的和。</p>
+<p>AC代码：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;vector&lt;int&gt; &gt; generate(int numRows) &#123;</span><br><span class="line">        vector&lt;vector&lt;int&gt;&gt; res(numRows);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (int <span class="built_in">i</span> = <span class="number">0</span>; <span class="built_in">i</span> &lt; numRows; <span class="built_in">i</span>++) &#123;</span><br><span class="line">            res[<span class="built_in">i</span>].resize(<span class="built_in">i</span> + <span class="number">1</span>);</span><br><span class="line">            res[<span class="built_in">i</span>][<span class="number">0</span>] = res[<span class="built_in">i</span>][<span class="built_in">i</span>] = <span class="number">1</span>;</span><br><span class="line">  </span><br><span class="line">            <span class="keyword">for</span> (int <span class="built_in">j</span> = <span class="number">1</span>; <span class="built_in">j</span> &lt; <span class="built_in">i</span>; <span class="built_in">j</span>++)</span><br><span class="line">                res[<span class="built_in">i</span>][<span class="built_in">j</span>] = res[<span class="built_in">i</span> - <span class="number">1</span>][<span class="built_in">j</span> - <span class="number">1</span>] + res[<span class="built_in">i</span> - <span class="number">1</span>][<span class="built_in">j</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="119-Pascal’s-Triangle-II"><a href="#119-Pascal’s-Triangle-II" class="headerlink" title="119. Pascal’s Triangle II"></a>119. Pascal’s Triangle II</h2><p>Given a non-negative index k where k ≤ 33, return the kth index row of the Pascal’s triangle.</p>
+<p>Example:</p>
+<p>Input: 3<br>Output: [1,3,3,1]<br>Follow up:</p>
+<p>Could you optimize your algorithm to use only O(k) extra space?</p>
+<p>因为我们只需要返回第k行的结果，所以相比于前一题，我们不需要记录整个三角形的数，只需要对一行不断循环操作即可。</p>
+<p>AC代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; getRow(<span class="keyword">int</span> rowIndex) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res(rowIndex+<span class="number">1</span>,<span class="number">0</span>);</span><br><span class="line">        res[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;rowIndex+<span class="number">1</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=i;j&gt;=<span class="number">1</span>;j--)</span><br><span class="line">                res[j]+=res[j<span class="number">-1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -862,7 +1075,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -966,7 +1179,7 @@ busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共2.4k字</span>
+  <span class="post-count">博客全站共3.3k字</span>
 </div>
         
 
